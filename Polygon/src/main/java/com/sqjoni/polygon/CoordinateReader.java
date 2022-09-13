@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import javafx.util.Pair;
 
 
 /**
@@ -25,8 +26,8 @@ public class CoordinateReader {
     private final String pointCoordinatesFile = "src/main/resources/pisteet.txt";
     
     //Data structures for coordinates
-    private ArrayList<Point3D> polygonCoordinates;
-    private ArrayList<Point3D> pointCoordinates;
+    private ArrayList<Point> polygonCoordinates;
+    private ArrayList<Point> pointCoordinates;
     
     //The data is read when an instance of this class is initialized
     CoordinateReader() throws IOException, ParseException {
@@ -43,9 +44,9 @@ public class CoordinateReader {
                 String[] coordinates = line.split(",");
                 int x = Integer.parseInt(coordinates[0]);
                 int y = Integer.parseInt(coordinates[1]);
-                int z = Integer.parseInt(coordinates[2]);
                 
-                this.addPolygonCoordinate(x, y, z);                
+                
+                this.addPolygonCoordinate(x, y);                
             }
             
             reader = new BufferedReader(new FileReader(pointCoordinatesFile));
@@ -53,9 +54,9 @@ public class CoordinateReader {
                 String[] coordinates = line.split(",");
                 int x = Integer.parseInt(coordinates[0]);
                 int y = Integer.parseInt(coordinates[1]);
-                int z = Integer.parseInt(coordinates[2]);
                 
-                this.addPointCoordinate(x, y, z);                
+                
+                this.addPointCoordinate(x, y);                
             }
         
         } catch (IOException e) {
@@ -65,18 +66,18 @@ public class CoordinateReader {
         }
     }
     
-    private void addPolygonCoordinate(int x, int y, int z) {
-        polygonCoordinates.add(new Point3D (x, y, z));        
+    private void addPolygonCoordinate(int x, int y) {
+        polygonCoordinates.add(new Point(x, y));        
     }
-    private void addPointCoordinate(int x, int y, int z) {
-        pointCoordinates.add(new Point3D (x, y, z));        
+    private void addPointCoordinate(int x, int y) {
+        pointCoordinates.add(new Point(x, y));        
     }
     
-    public ArrayList<Point3D> getPolygonCoordinates() {       
+    public ArrayList<Point> getPolygonCoordinates() {       
         return this.polygonCoordinates;
     }
     
-    public ArrayList<Point3D> getPointCoordinates() {       
+    public ArrayList<Point> getPointCoordinates() {       
         return this.pointCoordinates;
     }
     
